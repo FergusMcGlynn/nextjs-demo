@@ -1,48 +1,54 @@
 import Head from 'next/head'
+import {useState} from "react";
 
 export default function Home() {
+  let [inputValue, setInputValue] = useState('2');
+
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>An example Next.js project</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
         <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          An example <a href="https://nextjs.org">Next.js</a> project!
         </h1>
 
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
+        <h2 className="description">
+          This page was statically generated at build-time
+        </h2>
 
         <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
+          <a href="/time" className="card">
+            <h3>Whats the time? &rarr;</h3>
+            <p>It's quarter to nine; <a href="https://www.youtube.com/watch?v=vtkGtXtDlQA">Time to have a bath</a></p>
           </a>
 
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
+          <a href="/skywalker" className="card">
+            <h3>Fetching data statically &rarr;</h3>
+            <p>The force is strong with this one</p>
           </a>
 
-          <a
-            href="https://github.com/zeit/next.js/tree/master/examples"
+          <form
+            action={`/swapi/${inputValue}`}
+            method="get"
             className="card"
           >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+            <h3>Fetching data dynamically &rarr;</h3>
+            <p>Enter a number between 1 & 83</p>
+            <input type="number" min="1" max="83" value={inputValue} onChange={event => setInputValue(event.target.value)}/>
+            <button role="submit">Go</button>
+          </form>
 
           <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+            href="/chris"
             className="card"
           >
-            <h3>Deploy &rarr;</h3>
+            <h3>Inconspicuous link &rarr;</h3>
             <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
+              Nothing to see here.
             </p>
           </a>
         </div>
@@ -158,6 +164,7 @@ export default function Home() {
           border: 1px solid #eaeaea;
           border-radius: 10px;
           transition: color 0.15s ease, border-color 0.15s ease;
+          height: 160px;
         }
 
         .card:hover,
