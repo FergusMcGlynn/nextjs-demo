@@ -1,13 +1,10 @@
 import Link from "next/link";
 
-export default function Time() {
-    let date = new Date();
-
-    let timeString = `${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}.${date.getMilliseconds()}`
+export default function Time(props) {
 
     return (
         <>
-            <h1>This page was loaded at <span className="purple">{timeString}</span> and was generated server-side</h1>
+            <h1>This page was loaded at <span className="purple">{props.time}</span> and was generated server-side</h1>
             <h2>
                 <Link href="/">
                     <a>Back to home</a>
@@ -21,4 +18,16 @@ export default function Time() {
             `}</style>
         </>
     )
+}
+
+export async function getServerSideProps() {
+    let date = new Date();
+
+    let timeString = `${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}.${date.getMilliseconds()}`
+
+    return {
+        props: {
+            time: timeString
+        }
+    }
 }
