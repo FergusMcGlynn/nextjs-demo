@@ -5,6 +5,7 @@ export default function Time(props) {
     return (
         <>
             <h1>This page was loaded at <span className="purple">{props.time}</span> and was generated server-side</h1>
+            <p>Offset: {props.offset}</p>
             <h2>
                 <Link href="/">
                     <a>Back to home</a>
@@ -27,7 +28,8 @@ export async function getServerSideProps() {
 
     return {
         props: {
-            time: timeString
+            time: timeString,
+            offset: date.getTimezoneOffset()
         }
     }
 }
