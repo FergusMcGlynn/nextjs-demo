@@ -24,7 +24,7 @@ export default function SkyWalker(props) {
 
 export async function getStaticProps() {
 
-    let response = await fetch("https://swapi.dev/api/people/1/", {
+    let response = await fetch("https://swapi.dev/api/people/1", {
         method: 'GET',
         headers: {
             contentType: 'application/json'
