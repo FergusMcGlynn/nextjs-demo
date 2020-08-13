@@ -1,0 +1,24 @@
+service: ssr-react-next-christian
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: eu-west-1
+  environment:
+    NODE_ENV: production
+
+functions:
+  server:
+    handler: index.server
+    events:
+      - http: ANY /
+      - http: ANY /{proxy+}
+
+plugins:
+  - serverless-apigw-binary
+
+custom:
+  apigwBinary:
+    types:
+      - '*/*'
