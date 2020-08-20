@@ -18,8 +18,15 @@ functions:
 
 plugins:
   - serverless-apigw-binary
+  - serverless-domain-manager
 
 custom:
   apigwBinary:
     types:
       - '*/*'
+  customDomain:
+    domainName: nextjs.demoapp.dev.app.york.ac.uk
+    basePath: ''
+    stage: dev
+    createRoute53Record: false
+    autoDomain: true
