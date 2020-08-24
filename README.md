@@ -1,7 +1,12 @@
-This is a simple Next.js app written by Chrisian Beddows to 
+This is a simple Next.js app written by Christian Beddows to 
 showcase some Next.js features and demonstrate how it works.
 
 # Deploy to AWS
+
+## "Automatic" deployment
+
+Run this repo's github action, either by pushing a change
+or by running it from the Github web interface
 
 ## "Manual" deployment
 

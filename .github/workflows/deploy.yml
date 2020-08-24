@@ -1,0 +1,39 @@
+on: push
+jobs:
+  deploy_to_aws:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Check out cfn-certificate-provider
+        uses: actions/checkout@master
+        with:
+          repository: binxio/cfn-certificate-provider
+
+      - name: Deploy cfn-certificate-provider to AWS CloudFormation
+        uses: university-of-york/aws-cfn-deploy-action@v1.0
+        env:
+          TEMPLATE: 'cloudformation/cfn-resource-provider.yaml'
+          AWS_STACK_NAME: 'cfn-certificate-provider-stack'
+          AWS_REGION: 'eu-west-1'
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          CAPABILITIES: 'CAPABILITY_IAM CAPABILITY_NAMED_IAM'
+          ROLE_ARN: 'arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GithubActionsDeploymentRole'
+
+      - name: Check out the application's source code
+        uses: actions/checkout@v2
+
+      - name: Install application dependencies
+        run: npm ci
+
+      - name: Deploy application using Serverless
+        run: npm run deploy
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: eu-west-1
