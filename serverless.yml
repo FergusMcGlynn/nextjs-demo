@@ -6,6 +6,8 @@ provider:
   stage: dev
   region: eu-west-1
   memorySize: 512
+  apiGateway:
+    minimumCompressionSize: 1024
   environment:
     NODE_ENV: production
 
