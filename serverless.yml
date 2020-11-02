@@ -24,7 +24,7 @@ custom:
   apigwBinary:
     types:
       - '*/*'
-  domainName: nextjs.eu-west-1.demoapp.dev.app.york.ac.uk
+  domainName: nextjs.cloudfront.demoapp.dev.app.york.ac.uk
 
 resources:
   Resources:
