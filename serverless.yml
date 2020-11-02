@@ -1,4 +1,4 @@
-service: ssr-react-next-christian
+service: ssr-react-next-cloudfront
 
 provider:
   name: aws
