@@ -18,7 +18,6 @@ functions:
 
 plugins:
   - serverless-apigw-binary
-  - serverless-pseudo-parameters
   - serverless-api-cloudfront
 
 custom:

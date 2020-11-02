@@ -20,7 +20,6 @@
   },
   "devDependencies": {
     "serverless": "^1.78.1",
-    "serverless-api-cloudfront": "^0.9.5",
-    "serverless-pseudo-parameters": "^2.5.0"
+    "serverless-api-cloudfront": "^0.9.5"
   }
 }
