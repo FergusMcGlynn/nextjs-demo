@@ -19,22 +19,33 @@ functions:
 plugins:
   - serverless-apigw-binary
   - serverless-pseudo-parameters
+  - serverless-api-cloudfront
 
 custom:
   apigwBinary:
     types:
       - '*/*'
   domainName: nextjs.cloudfront.demoapp.dev.app.york.ac.uk
+  # Use serverless-api-cloudfront to put a CloudFront distribution in front of the application's API
+  # See https://github.com/Droplr/serverless-api-cloudfront for configuration options
+  # Note that the following requires an SSL certificate for the above domain name to have been created in region us-east-1
+  apiCloudFront:
+    domain: ${self:custom.domainName}
+    certificate: arn:aws:acm:us-east-1:914356138365:certificate/ec1031c7-8361-489d-81b6-03371fc90656
+    compress: true
+    priceClass: PriceClass_100
+    minimumProtocolVersion: TLSv1
 
 resources:
   Resources:
-    # DNS CNAME mapping the application's domain name to the behind-the-scenes domain name for the API
+    # DNS CNAME mapping the application's domain name to the cloudfront distribution
+    # Note that "apiCloudFront" above becomes "ApiDistribution" in the generated CloudFormation
     AppCNAME:
       Type: Custom::CNAME
       Properties:
         ServiceToken: "arn:aws:sns:eu-west-1:230504789214:RequestRecordSet"
         Source: ${self:custom.domainName}.
-        Target: !Join [ '', [ !GetAtt ApiGatewayCustomDomainName.RegionalDomainName, '.' ] ]
+        Target: !Join [ '', [ !GetAtt ApiDistribution.DomainName, '.' ] ]
 
 package:
   exclude:
